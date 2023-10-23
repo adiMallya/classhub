@@ -11,15 +11,24 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <Box bg="purple.600" p="4">
-      <Flex as={"nav"} w={"full"} justifyContent={"center"}>
-        <HStack as={List} spacing={"28"} alignItems={"center"}>
+      <Flex as={"nav"} w={"full"} justifyContent={"space-around"}>
+        <ChakraLink
+          href={"/"}
+          color={"whiteAlpha.900"}
+          fontSize={"lg"}
+          fontWeight={"semibold"}
+          display={{ base: "none", md: "block" }}
+          textDecoration={"none"}
+        >
+          ClassHub
+        </ChakraLink>
+        <HStack as={List} spacing={"8"} alignItems={"center"}>
           <ListItem>
             <ChakraLink
               as={Link}
               to={"/classes"}
               color={"whiteAlpha.900"}
-              fontSize={"lg"}
-              fontWeight={"semibold"}
+              fontSize={"md"}
             >
               Classes
             </ChakraLink>
@@ -29,8 +38,7 @@ const Navbar = () => {
               as={Link}
               to={"/"}
               color={"whiteAlpha.900"}
-              fontSize={"lg"}
-              fontWeight={"semibold"}
+              fontSize={"md"}
             >
               School
             </ChakraLink>
@@ -40,8 +48,7 @@ const Navbar = () => {
               as={Link}
               to={"/students"}
               color={"whiteAlpha.900"}
-              fontSize={"lg"}
-              fontWeight={"semibold"}
+              fontSize={"md"}
             >
               Students
             </ChakraLink>
@@ -51,8 +58,7 @@ const Navbar = () => {
               as={Link}
               to={"/teachers"}
               color={"whiteAlpha.900"}
-              fontSize={"lg"}
-              fontWeight={"semibold"}
+              fontSize={"md"}
             >
               Teachers
             </ChakraLink>
