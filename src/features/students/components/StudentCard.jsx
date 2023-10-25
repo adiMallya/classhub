@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Box, Stack, Text, Button } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
-import StudentModal from "./StudentModal";
+import { StudentModal } from "./StudentModal";
 import { removeStudentAsync } from "features";
 
 const StudentCard = ({ student }) => {
@@ -82,10 +82,10 @@ const StudentCard = ({ student }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         student={student}
-        editable={isEditable}
+        mode={isEditable && "edit"}
       />
     </>
   );
 };
 
-export default React.memo(StudentCard);
+export { StudentCard };
