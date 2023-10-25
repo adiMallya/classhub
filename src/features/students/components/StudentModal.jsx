@@ -14,23 +14,25 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { editStudentAsync } from "features";
+import { addStudentAsync, editStudentAsync } from "features";
 import { formatDateToStandard } from "src/utils";
 
-const StudentModal = ({ isOpen, onClose, student, editable }) => {
+const StudentModal = ({ isOpen, onClose, student, mode }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    firstName: student?.firstName || "",
-    lastName: student?.lastName || "",
-    dateOfBirth: student?.dateOfBirth || "",
-    gender: student?.gender || "",
-    class: student?.class._id || "",
-    attendance: student?.attendance || 0,
-    marks: student?.marks || 0,
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    gender: "",
+    class: "",
+    attendance: 0,
+    marks: 0,
   });
+
+  const editable = mode === "edit" || mode === "add";
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,20 +44,53 @@ const StudentModal = ({ isOpen, onClose, student, editable }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(typeof student._id);
-    dispatch(
-      editStudentAsync({ studentId: student._id, editedFields: formData })
-    );
+    if (mode === "edit") {
+      dispatch(
+        editStudentAsync({ studentId: student._id, editedFields: formData })
+      );
+    } else if (mode === "add") {
+      dispatch(addStudentAsync(formData));
+    }
 
     onClose();
   };
+
+  useEffect(() => {
+    setFormData({
+      firstName: (mode !== "add" && student?.firstName) || "",
+      lastName: (mode !== "add" && student?.lastName) || "",
+      dateOfBirth: (mode !== "add" && student?.dateOfBirth) || "",
+      gender: (mode !== "add" && student?.gender) || "",
+      class: (mode !== "add" && student?.class._id) || "",
+      attendance: (mode !== "add" && student?.attendance) || 0,
+      marks: (mode !== "add" && student?.marks) || 0,
+    });
+  }, [student, mode]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        gender: "",
+        class: "",
+        attendance: 0,
+        marks: 0,
+      });
+    }
+  }, [isOpen]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          {editable ? "Edit Student" : "Student Details"}
+          {mode === "edit"
+            ? "Edit Student"
+            : mode === "add"
+            ? "Add Student"
+            : "Student Details"}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody as={"form"} onSubmit={handleFormSubmit}>
@@ -79,17 +114,28 @@ const StudentModal = ({ isOpen, onClose, student, editable }) => {
             </FormControl>
           </HStack>
           <HStack>
-            <FormControl isDisabled={true}>
+            <FormControl isDisabled={!editable}>
               <FormLabel>Date of Birth</FormLabel>
               <Input
                 type="date"
                 name="dateOfBirth"
-                value={formatDateToStandard(formData?.dateOfBirth)}
+                value={
+                  formData?.dateOfBirth &&
+                  formatDateToStandard(formData.dateOfBirth)
+                }
+                onChange={handleInputChange}
               />
             </FormControl>
-            <FormControl isDisabled={true}>
+            <FormControl isDisabled={!editable}>
               <FormLabel>Gender</FormLabel>
-              <Input name="gender" value={formData?.gender} />
+              <Select
+                name="gender"
+                value={formData?.gender}
+                onChange={handleInputChange}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </Select>
             </FormControl>
           </HStack>
           <FormControl isDisabled={!editable}>
@@ -121,7 +167,9 @@ const StudentModal = ({ isOpen, onClose, student, editable }) => {
           <ModalFooter>
             {editable ? (
               <Stack direction={"row"} spacing={3}>
-                <Button type="submit">Update</Button>
+                <Button type="submit">
+                  {mode === "edit" ? "Update" : "Add"}
+                </Button>
                 <Button type="button" variant={"ghost"} onClick={onClose}>
                   Cancel
                 </Button>
@@ -138,4 +186,4 @@ const StudentModal = ({ isOpen, onClose, student, editable }) => {
   );
 };
 
-export default StudentModal;
+export { StudentModal };
