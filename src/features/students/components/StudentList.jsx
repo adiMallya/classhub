@@ -15,11 +15,17 @@ const StudentList = () => {
     }
   }, [status, dispatch]);
 
-  if (status === "idle") {
+  if (status === "loading") {
     return (
       <Box>
         {[...Array(3)].map((_, index) => (
-          <Skeleton key={index} height={"100px"} my={"10px"} />
+          <Skeleton
+            key={index}
+            height={"100px"}
+            my={"10px"}
+            startColor="gray.100"
+            endColor="gray.300"
+          />
         ))}
       </Box>
     );
