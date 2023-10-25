@@ -1,7 +1,13 @@
+import { Routes, Route } from "react-router-dom";
+import { SchoolView, StudentsView } from "src/pages";
+
 function App() {
   return (
     <>
-      <h1>Home</h1>
+      <Routes>
+        <Route path="/" element={<SchoolView />} />
+        <Route path="/students" element={<StudentsView />} />
+      </Routes>
     </>
   );
 }
