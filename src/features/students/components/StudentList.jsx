@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentsAsync } from "features";
 import { Box, Skeleton } from "@chakra-ui/react";
-import StudentCard from "./StudentCard";
+import { StudentCard } from "./StudentCard";
 
 const StudentList = () => {
   const dispatch = useDispatch();
