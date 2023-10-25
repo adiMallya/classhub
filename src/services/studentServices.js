@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "src/utils/constant";
+import { BASE_URL } from "src/utils";
 
 const getStudentsFromServer = async () => {
     const response = await axios.get(`${BASE_URL}/students`);
