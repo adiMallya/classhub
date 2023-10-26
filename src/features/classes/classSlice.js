@@ -14,13 +14,27 @@ export const fetchClassStudentsAsync = createAsyncThunk('classes/fetchClassStude
 const initialState = {
     classes: [],
     studentsOfClass: {},
-    status: "idle",
+    selectedClassId: null,
+    genderFilter: 'all',
+    sortKey: 'firstName',
+    status: 'idle',
     error: null
 };
 
 const classSlice = createSlice({
     name: "class",
     initialState,
+    reducers: {
+        setSelectedClassId: (state, action) => {
+            state.selectedClassId = action.payload;
+        },
+        setGenderFilter: (state, action) => {
+            state.genderFilter = action.payload;
+        },
+        setSortKey: (state, action) => {
+            state.sortKey = action.payload;
+        }
+    },
     extraReducers: {
         [fetchClassesAsync.pending]: (state) => {
             state.status = "loading";
@@ -48,4 +62,5 @@ const classSlice = createSlice({
     }
 });
 
+export const { setSelectedClassId, setGenderFilter, setSortKey } = classSlice.actions;
 export const classReducer = classSlice.reducer;
