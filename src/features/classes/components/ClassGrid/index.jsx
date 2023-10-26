@@ -9,11 +9,11 @@ const ClassGrid = () => {
     (state) => state.class.studentsOfClass[state.class.selectedClassId] || []
   );
   const genderFilter = useSelector((state) => state.class.genderFilter);
-  const sortKey = useSelector((state) => state.class.sortKey);
+  const { direction, key } = useSelector((state) => state.class.sort);
   // Filter students by gender
   const filteredStudents = filterStudentsByGender(students, genderFilter);
   // Sort students by name, date of birth etc.
-  const sortedStudents = sortStudents([...filteredStudents], sortKey);
+  const sortedStudents = sortStudents([...filteredStudents], key, direction);
 
   return (
     <Box>

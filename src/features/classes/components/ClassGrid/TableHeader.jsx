@@ -19,6 +19,7 @@ const TableHeader = () => {
           borderColor="gray.200"
           data-name="firstName"
           onClick={handleSort}
+          cursor={"pointer"}
         >
           First Name
         </Th>
@@ -27,12 +28,18 @@ const TableHeader = () => {
           borderColor="gray.200"
           data-name="lastName"
           onClick={handleSort}
+          cursor={"pointer"}
         >
           Last Name
         </Th>
         <Th border="1px solid" borderColor="gray.200" display={"flex"} gap={2}>
           Gender
-          <Select size={"xs"} value={genderFilter} onChange={handleFilter}>
+          <Select
+            size={"xs"}
+            value={genderFilter}
+            onChange={handleFilter}
+            cursor={"pointer"}
+          >
             <option value={"all"}>All</option>
             <option value={"Male"}>Male</option>
             <option value={"Female"}>Female</option>
@@ -43,6 +50,7 @@ const TableHeader = () => {
           borderColor="gray.200"
           data-name="dateOfBirth"
           onClick={handleSort}
+          cursor={"pointer"}
         >
           Age
         </Th>
@@ -51,6 +59,7 @@ const TableHeader = () => {
           borderColor="gray.200"
           data-name="attendance"
           onClick={handleSort}
+          cursor={"pointer"}
         >
           Attendance (/100)
         </Th>
@@ -59,6 +68,7 @@ const TableHeader = () => {
           borderColor="gray.200"
           data-name="marks"
           onClick={handleSort}
+          cursor={"pointer"}
         >
           Marks (/100)
         </Th>

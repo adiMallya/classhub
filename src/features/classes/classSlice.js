@@ -16,7 +16,10 @@ const initialState = {
     studentsOfClass: {},
     selectedClassId: null,
     genderFilter: 'all',
-    sortKey: 'firstName',
+    sort: {
+        direction: 'asc',
+        key: 'firstName'
+    },
     status: 'idle',
     error: null
 };
@@ -32,7 +35,12 @@ const classSlice = createSlice({
             state.genderFilter = action.payload;
         },
         setSortKey: (state, action) => {
-            state.sortKey = action.payload;
+            if (state.sort.key === action.payload) {
+                state.sort.direction = state.sort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                state.sort.key = action.payload;
+                state.sort.direction = 'asc';
+            }
         }
     },
     extraReducers: {

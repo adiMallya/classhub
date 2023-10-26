@@ -3,14 +3,19 @@ export const filterStudentsByGender = (students, genderFilter) => students.filte
     return student.gender === genderFilter;
 });
 
-export const sortStudents = (students, sortKey) => students.sort((a, b) => {
-    if (sortKey === 'dateOfBirth') {
-        return new Date(a.dateOfBirth) - new Date(b.dateOfBirth);
+export const sortStudents = (students, sortKey, sortDirection) => students.sort((a, b) => {
+    let result;
+    if (typeof a[sortKey] === 'string') {
+        result = a[sortKey].localeCompare(b[sortKey]);
+    }
+    else if (typeof a[sortKey] === 'number') {
+        result = a[sortKey] - b[sortKey];
+    }
+    else if (sortKey === 'dateOfBirth') {
+        result = new Date(a.dateOfBirth) - new Date(b.dateOfBirth);
+    } else {
+        result = 0;
     }
 
-    if (sortKey === ('attendance' || 'marks')) {
-        return Number(a[sortKey]) - Number(b[sortKey]);
-    }
-
-    return a[sortKey].localeCompare(b[sortKey]);
+    return sortDirection === 'asc' ? result : -result;
 });
