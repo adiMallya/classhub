@@ -6,13 +6,14 @@ export const fetchClassesAsync = createAsyncThunk('classes/fetchClassesAsync', a
     return classes;
 });
 
-export const fetchClassMembersAsync = createAsyncThunk('classes/fetchClassMembersAsync', async ({ classId, memberType }) => {
-    const members = await getMembersFromClass(classId, memberType);
+export const fetchClassStudentsAsync = createAsyncThunk('classes/fetchClassStudentsAsync', async (classId) => {
+    const members = await getMembersFromClass(classId, "students");
     return members;
 });
 
 const initialState = {
     classes: [],
+    studentsOfClass: {},
     status: "idle",
     error: null
 };
@@ -32,14 +33,15 @@ const classSlice = createSlice({
             state.status = "error";
             state.error = action.error.message;
         },
-        [fetchClassMembersAsync.pending]: (state) => {
+        [fetchClassStudentsAsync.pending]: (state) => {
             state.status = "loading";
         },
-        [fetchClassMembersAsync.fulfilled]: (state, action) => {
+        [fetchClassStudentsAsync.fulfilled]: (state, action) => {
             state.status = "success";
-
+            const classId = action.meta.arg;
+            state.studentsOfClass[classId] = action.payload;
         },
-        [fetchClassMembersAsync.rejected]: (state, action) => {
+        [fetchClassStudentsAsync.rejected]: (state, action) => {
             state.status = "error";
             state.error = action.error.message;
         }
