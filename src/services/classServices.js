@@ -11,7 +11,7 @@ const getClassesFromServer = async () => {
 }
 
 const getMembersFromClass = async (classId, type) => {
-    const response = await axios.get(`${BASE_URL}/class/${classId}/members`, { params: type });
+    const response = await axios.get(`${BASE_URL}/class/${classId}/members?type=${type}`);
     if (response.data.success) {
         return response.data.data;
     } else {
