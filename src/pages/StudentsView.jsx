@@ -16,6 +16,7 @@ export const StudentsView = () => {
 
   useEffect(() => {
     if (status === "error") {
+      const error = useSelector((state) => state.students.error);
       toast.error(error);
     }
   }, [status]);
