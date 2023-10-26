@@ -12,7 +12,7 @@ const getStudentsFromServer = async () => {
 
 const postStudentToServer = async (studentData) => {
     const response = await axios.post(`${BASE_URL}/students`, { ...studentData });
-    if (!response.data.success) {
+    if (response.data.success) {
         return response.data.data;
     } else {
         throw new Error(response.data.error);
