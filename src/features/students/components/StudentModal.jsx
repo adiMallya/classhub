@@ -15,12 +15,14 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addStudentAsync, editStudentAsync } from "features";
 import { formatDateToStandard } from "src/utils";
 
 const StudentModal = ({ isOpen, onClose, student, mode }) => {
   const dispatch = useDispatch();
+
+  const classes = useSelector((state) => state.class.classes);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -56,18 +58,6 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
   };
 
   useEffect(() => {
-    setFormData({
-      firstName: (mode !== "add" && student?.firstName) || "",
-      lastName: (mode !== "add" && student?.lastName) || "",
-      dateOfBirth: (mode !== "add" && student?.dateOfBirth) || "",
-      gender: (mode !== "add" && student?.gender) || "",
-      class: (mode !== "add" && student?.class._id) || "",
-      attendance: (mode !== "add" && student?.attendance) || 0,
-      marks: (mode !== "add" && student?.marks) || 0,
-    });
-  }, [student, mode]);
-
-  useEffect(() => {
     if (!isOpen) {
       setFormData({
         firstName: "",
@@ -80,6 +70,18 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
       });
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    setFormData({
+      firstName: (mode !== "add" && student?.firstName) || "",
+      lastName: (mode !== "add" && student?.lastName) || "",
+      dateOfBirth: (mode !== "add" && student?.dateOfBirth) || "",
+      gender: (mode !== "add" && student?.gender) || "",
+      class: (mode !== "add" && student?.class._id) || "",
+      attendance: (mode !== "add" && student?.attendance) || 0,
+      marks: (mode !== "add" && student?.marks) || 0,
+    });
+  }, [student, mode]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -130,7 +132,8 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
               <FormLabel>Gender</FormLabel>
               <Select
                 name="gender"
-                value={formData?.gender}
+                placeholder="Select a value"
+                value={formData?.gender || ""}
                 onChange={handleInputChange}
               >
                 <option value="Male">Male</option>
@@ -142,9 +145,16 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
             <FormLabel>Class</FormLabel>
             <Select
               name="class"
-              value={formData?.class}
+              placeholder="Select a class to assign"
+              value={formData?.class || ""}
               onChange={handleInputChange}
-            ></Select>
+            >
+              {classes.map((cls) => (
+                <option key={cls._id} value={cls?._id}>
+                  {cls?.name}
+                </option>
+              ))}
+            </Select>
           </FormControl>
           <FormControl isDisabled={!editable}>
             <FormLabel>Attendance</FormLabel>
