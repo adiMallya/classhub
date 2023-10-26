@@ -97,7 +97,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
         <ModalCloseButton />
         <ModalBody as={"form"} onSubmit={handleFormSubmit}>
           <HStack>
-            <FormControl isDisabled={!editable}>
+            <FormControl isDisabled={!editable} isRequired>
               <FormLabel>First Name</FormLabel>
               <Input
                 name="firstName"
@@ -106,7 +106,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
                 _focus={editable}
               />
             </FormControl>
-            <FormControl isDisabled={!editable}>
+            <FormControl isDisabled={!editable} isRequired>
               <FormLabel>Last Name</FormLabel>
               <Input
                 name="lastName"
@@ -116,7 +116,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
             </FormControl>
           </HStack>
           <HStack>
-            <FormControl isDisabled={!editable}>
+            <FormControl isDisabled={!editable} isRequired>
               <FormLabel>Date of Birth</FormLabel>
               <Input
                 type="date"
@@ -128,7 +128,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
                 onChange={handleInputChange}
               />
             </FormControl>
-            <FormControl isDisabled={!editable}>
+            <FormControl isDisabled={!editable} isRequired>
               <FormLabel>Gender</FormLabel>
               <Select
                 name="gender"
@@ -141,7 +141,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
               </Select>
             </FormControl>
           </HStack>
-          <FormControl isDisabled={!editable}>
+          <FormControl isDisabled={!editable} isRequired>
             <FormLabel>Class</FormLabel>
             <Select
               name="class"
