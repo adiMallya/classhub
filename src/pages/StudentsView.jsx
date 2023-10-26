@@ -9,6 +9,7 @@ export const StudentsView = () => {
   const closeModal = () => setModalOpen(false);
 
   const handleAddDetails = () => setModalOpen(true);
+
   return (
     <Box>
       <Navbar />
