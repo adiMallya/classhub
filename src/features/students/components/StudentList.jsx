@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentsAsync } from "features";
 import { Box, Skeleton } from "@chakra-ui/react";
 import { StudentCard } from "./StudentCard";
-import toast from "react-hot-toast";
 
 const StudentList = () => {
   const dispatch = useDispatch();
@@ -15,13 +14,6 @@ const StudentList = () => {
       dispatch(fetchStudentsAsync());
     }
   }, [status, dispatch]);
-
-  useEffect(() => {
-    if (status === "error") {
-      const error = useSelector((state) => state.students.error);
-      toast.error(error);
-    }
-  }, [status]);
 
   if (status === "loading") {
     return (
