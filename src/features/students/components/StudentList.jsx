@@ -1,19 +1,10 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchStudentsAsync } from "features";
+import { useSelector } from "react-redux";
 import { Box, Skeleton } from "@chakra-ui/react";
 import { StudentCard } from "./StudentCard";
 
 const StudentList = () => {
-  const dispatch = useDispatch();
   const students = useSelector((state) => state.students.students);
   const status = useSelector((state) => state.students.status);
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchStudentsAsync());
-    }
-  }, [status, dispatch]);
 
   if (status === "loading") {
     return (

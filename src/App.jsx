@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchClassesAsync());
     dispatch(fetchStudentsAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
