@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
 import { Box, Skeleton } from "@chakra-ui/react";
-import { StudentCard } from "./StudentCard";
+import { TeacherCard } from "./TeacherCard";
 
-const StudentList = () => {
-  const students = useSelector((state) => state.students.students);
-  const status = useSelector((state) => state.students.status);
+const TeacherList = () => {
+  const teachers = useSelector((state) => state.teachers.teachers);
+  const status = useSelector((state) => state.teachers.status);
 
   if (status === "loading") {
     return (
       <Box>
-        {[...Array(3)].map((_, index) => (
+        {[...Array(2)].map((_, index) => (
           <Skeleton
             key={index}
             height={"100px"}
@@ -24,11 +24,11 @@ const StudentList = () => {
 
   return (
     <Box>
-      {students.map((student) => (
-        <StudentCard key={student._id} student={student} />
+      {teachers.map((teacher) => (
+        <TeacherCard key={teacher._id} teacher={teacher} />
       ))}
     </Box>
   );
 };
 
-export { StudentList };
+export { TeacherList };

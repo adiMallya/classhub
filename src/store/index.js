@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { studentsReducer, classReducer } from "features";
+import { studentsReducer, classReducer, teachersReducer } from "features";
 
 export default configureStore({
     reducer: {
         students: studentsReducer,
-        class: classReducer
+        class: classReducer,
+        teachers: teachersReducer
     }
 });
