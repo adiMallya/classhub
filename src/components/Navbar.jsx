@@ -6,6 +6,7 @@ import {
   ListItem,
   HStack,
 } from "@chakra-ui/react";
+import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -61,6 +62,15 @@ const Navbar = () => {
               fontSize={"md"}
             >
               Teachers
+            </ChakraLink>
+          </ListItem>
+          <ListItem>
+            <ChakraLink
+              href="https://github.com/adiMallya/classhub"
+              target="_blank"
+              isExternal
+            >
+              <FaGithub fill="white" size={25} />
             </ChakraLink>
           </ListItem>
         </HStack>
