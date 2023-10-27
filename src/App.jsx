@@ -1,7 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { SchoolView, StudentsView, ClassView } from "src/pages";
+import { SchoolView, StudentsView, ClassView, TeachersView } from "src/pages";
 import { Toaster } from "react-hot-toast";
-import { fetchClassesAsync, fetchStudentsAsync } from "features";
+import {
+  fetchClassesAsync,
+  fetchStudentsAsync,
+  fetchTeachersAsync,
+} from "features";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -11,6 +15,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchClassesAsync());
     dispatch(fetchStudentsAsync());
+    dispatch(fetchTeachersAsync());
   }, [dispatch]);
 
   return (
@@ -20,6 +25,7 @@ function App() {
         <Route path="/" element={<SchoolView />} />
         <Route path="/classes" element={<ClassView />} />
         <Route path="/students" element={<StudentsView />} />
+        <Route path="/teachers" element={<TeachersView />} />
       </Routes>
     </>
   );
