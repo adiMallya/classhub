@@ -147,7 +147,7 @@ const TeacherModal = ({ isOpen, onClose, teacher, mode }) => {
               <FormLabel>Subject</FormLabel>
               <Select
                 name="subject"
-                placeholder="Select a Subject"
+                placeholder="Select Subject"
                 value={formData?.subject || ""}
                 onChange={handleInputChange}
               >

@@ -132,7 +132,7 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
               <FormLabel>Gender</FormLabel>
               <Select
                 name="gender"
-                placeholder="Select a value"
+                placeholder="Select Gender"
                 value={formData?.gender || ""}
                 onChange={handleInputChange}
               >
@@ -145,12 +145,16 @@ const StudentModal = ({ isOpen, onClose, student, mode }) => {
             <FormLabel>Class</FormLabel>
             <Select
               name="class"
-              placeholder="Select a class to assign"
+              placeholder="Select Class"
               value={formData?.class || ""}
               onChange={handleInputChange}
             >
               {classes.map((cls) => (
-                <option key={cls._id} value={cls?._id}>
+                <option
+                  key={cls._id}
+                  value={cls?._id}
+                  selected={formData?.class === cls?._id}
+                >
                   {cls?.name}
                 </option>
               ))}
